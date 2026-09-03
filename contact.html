@@ -1,30 +1,43 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact | Ashirbad Mishra</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"><style>
 .contact-name{font:800 24px/1.2 Manrope,Arial,sans-serif;color:var(--navy);margin:0 0 5px}.contact-list{gap:4px}.address{line-height:1.5}.contact-email{display:inline-block;margin-left:0;color:var(--navy);font-weight:600}.contact-email:hover{color:var(--accent)}.contact-note,.edit-note{display:none}.contact-grid{align-items:start}#contactForm{width:100%}#contactForm .form-grid{gap:10px}#contactForm textarea{width:100%;min-height:75px;height:75px}.form-status{margin-top:10px;font-size:12px;color:var(--slate)}.form-status.success{color:var(--navy)}.form-status.error{color:#9b3d3d}
 </style></head><body><header><div class="wrap nav"><a class="brand" href="index.html">ASHIRBAD MISHRA</a><nav><a href="index.html">Home</a><a href="about.html">About</a><a href="projects.html">Projects</a><a href="publications.html">Publications</a><a href="conferences.html">Conferences</a><a href="news.html">News</a><a href="contact.html">Contact</a></nav></div></header><main><div class="page-head"><div class="wrap"><div class="eyebrow">Connect</div><div class="page-title">Contact</div><p>For research collaboration, scientific discussion, data-related enquiries, technical assistance or academic opportunities.</p></div></div><section class="content"><div class="wrap contact-grid"><div><div class="eyebrow">Reach me at</div><div class="contact-list"><strong class="contact-name">Ashirbad Mishra</strong><div class="address">Department of Environmental Science<br>Berhampur University<br>Bhanja Bihar, Ganjam-760007<br>Odisha, India<br>mob: +91-7064560805<br><a class="contact-email" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=am.rs.evs@buodisha.edu.in" target="_blank" rel="noopener">email: am.rs.evs@buodisha.edu.in</a></div></div></div><div><div class="eyebrow">Research enquiry</div><form id="contactForm" method="POST" action="https://script.google.com/macros/s/AKfycbxSW_AXJY6aKQEE7F1e0rET1O9r01XV6rNUSclxFS8oB1xb0Pa61b_AH7VOqWs30wWzXw/exec" target="contactFrame"><div class="form-grid"><div class="field"><label for="name">Name *</label><input id="name" name="name" required></div><div class="field"><label for="affiliation">Affiliation *</label><input id="affiliation" name="affiliation" required></div><div class="field"><label for="email">Email *</label><input id="email" type="email" name="email" required></div><div class="field"><label for="type">Enquiry type</label><select id="type" name="type"><option>Research collaboration</option><option>Data request</option><option>Code / technical assistance</option><option>Scientific discussion</option><option>Academic opportunity</option><option>Other</option></select></div><div class="field full"><label for="message">Query *</label><textarea id="message" name="message" required placeholder="Tell me briefly about your research enquiry..."></textarea></div><div class="field full"><button class="btn primary" id="submitBtn" type="submit">Send request</button></div></div><div id="formStatus" class="form-status" aria-live="polite"></div></form><iframe name="contactFrame" id="contactFrame" hidden></iframe></div></div></section></main><footer><div class="wrap footer"><span>© 2026 Ashirbad Mishra · PhD Scholar in Atmospheric Science</span><span class="footer-links"><a href="https://scholar.google.com/citations?user=b5Xo5PAAAAAJ&amp;hl=en" target="_blank">Google Scholar</a><a href="https://orcid.org/0009-0001-2352-3678" target="_blank">ORCID</a><a href="https://www.researchgate.net/profile/Ashirbad-Mishra-4" target="_blank">ResearchGate</a><a href="https://www.linkedin.com/in/ashirbad-mishra-577418106" target="_blank">LinkedIn</a></span></div></footer><script src="js/main.js"></script><script>
-const contactForm=document.getElementById("contactForm"),submitBtn=document.getElementById("submitBtn"),formStatus=document.getElementById("formStatus");
-let waitingForResponse=false;
+const contactForm=document.getElementById("contactForm");
+const submitBtn=document.getElementById("submitBtn");
+const formStatus=document.getElementById("formStatus");
+const contactFrame=document.getElementById("contactFrame");
+let submitted=false;
 
 contactForm.addEventListener("submit",()=>{
- waitingForResponse=true;
- submitBtn.disabled=true;
- submitBtn.textContent="Sending…";
- formStatus.className="form-status";
- formStatus.textContent="Sending your enquiry…";
+  submitted=true;
+  submitBtn.disabled=true;
+  submitBtn.textContent="Sending…";
+  formStatus.className="form-status";
+  formStatus.textContent="Sending your enquiry…";
+});
+
+contactFrame.addEventListener("load",()=>{
+  if(!submitted)return;
+  submitted=false;
+  contactForm.reset();
+  submitBtn.disabled=false;
+  submitBtn.textContent="Send request";
+  formStatus.className="form-status success";
+  formStatus.textContent="Your enquiry has been sent successfully. Thank you.";
 });
 
 window.addEventListener("message",event=>{
- if(event.data && event.data.type==="contact-result"){
-   waitingForResponse=false;
-   submitBtn.disabled=false;
-   submitBtn.textContent="Send request";
-   if(event.data.success){
-     contactForm.reset();
-     formStatus.className="form-status success";
-     formStatus.textContent="Your enquiry has been sent successfully. Thank you.";
-   }else{
-     formStatus.className="form-status error";
-     formStatus.textContent="The enquiry could not be sent. Please try again or email me directly.";
-   }
- }
+  if(event.data && event.data.type==="contact-result"){
+    submitted=false;
+    submitBtn.disabled=false;
+    submitBtn.textContent="Send request";
+    if(event.data.success){
+      contactForm.reset();
+      formStatus.className="form-status success";
+      formStatus.textContent="Your enquiry has been sent successfully. Thank you.";
+    }else{
+      formStatus.className="form-status error";
+      formStatus.textContent="The enquiry could not be sent. Please try again or email me directly.";
+    }
+  }
 });
 </script></body></html>
