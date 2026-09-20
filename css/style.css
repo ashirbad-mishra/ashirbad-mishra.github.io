@@ -172,3 +172,20 @@ main > .page-title:first-child {
         padding-top: 0.75rem !important;
     }
 }
+
+
+/* --- Mobile navigation --- */
+.menu-toggle{display:none;width:42px;height:42px;padding:9px;background:transparent;border:1px solid var(--line);cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px;color:var(--navy)}
+.menu-toggle span{display:block;width:20px;height:1.5px;background:currentColor;transition:transform .2s ease,opacity .2s ease}
+@media(max-width:720px){
+  .nav{position:relative}
+  .menu-toggle{display:flex;margin-left:auto}
+  nav#siteNav{display:none;position:absolute;top:calc(100% + 1px);left:0;right:0;background:rgba(247,245,239,.98);backdrop-filter:blur(14px);border:1px solid rgba(16,38,61,.1);border-top:0;padding:8px 0;flex-direction:column;gap:0;box-shadow:0 10px 22px rgba(16,38,61,.08)}
+  nav#siteNav.is-open{display:flex}
+  nav#siteNav a{padding:12px 20px;font-size:15px;border-bottom:1px solid rgba(16,38,61,.07)}
+  nav#siteNav a:last-child{border-bottom:0}
+  nav#siteNav a:hover,nav#siteNav a.active{background:rgba(109,155,171,.08)}
+  .menu-toggle.is-open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .menu-toggle.is-open span:nth-child(2){opacity:0}
+  .menu-toggle.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+}
