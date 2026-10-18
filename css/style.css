@@ -190,3 +190,41 @@ main > .page-title:first-child {
   .menu-toggle.is-open span:nth-child(2){opacity:0}
   .menu-toggle.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 }
+/* --- Hero image: fit fully inside the box, never crop --- */
+.hero-image,
+.hero-photo,
+.hero-portrait {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 270px !important;
+  max-height: 270px !important;
+  padding: 20px !important;
+  overflow: hidden !important;
+}
+
+.hero-image img,
+.hero-photo img,
+.hero-portrait img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  min-width: 0 !important;      /* ← the missing piece for flex */
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+@media (max-width: 768px) {
+  .hero-image,
+  .hero-photo,
+  .hero-portrait {
+    height: 270px !important;
+    max-height: 270px !important;
+  }
+  .hero-image img,
+  .hero-photo img,
+  .hero-portrait img {
+    max-height: 100% !important;
+  }
+}
