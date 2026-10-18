@@ -189,3 +189,55 @@ main > .page-title:first-child {
   .menu-toggle.is-open span:nth-child(2){opacity:0}
   .menu-toggle.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 }
+
+/* --- October 2026 home-page refinement: smaller portrait + lighter canvas --- */
+:root {
+  --paper: #fbfaf7;
+  --white: #ffffff;
+  --line: #e1e5e2;
+}
+body { background: var(--paper); }
+header { background: rgba(251, 250, 247, .97); }
+.hero { padding-top: 18px; padding-bottom: 24px; }
+.hero-image,
+.hero-photo,
+.hero-portrait {
+  width: 50%;
+  max-width: 180px;
+  height: 180px;
+  max-height: 180px;
+  padding: 8px;
+  margin-inline: auto;
+  background: #f2f3ef;
+}
+.hero-image img,
+.hero-photo img,
+.hero-portrait img {
+  width: 100%;
+  height: 100%;
+  max-height: 164px;
+  object-fit: cover;
+  object-position: center 30%;
+}
+@media (max-width: 1050px) {
+  .hero-image, .hero-photo, .hero-portrait {
+    width: 180px;
+    max-width: 180px;
+    height: 180px;
+    max-height: 180px;
+    margin: 0;
+  }
+}
+@media (max-width: 720px) {
+  .hero { padding-top: 24px; padding-bottom: 24px; }
+  .hero-image, .hero-photo, .hero-portrait {
+    width: 150px;
+    max-width: 150px;
+    height: 150px;
+    max-height: 150px;
+    margin-inline: auto;
+  }
+  .hero-image img, .hero-photo img, .hero-portrait img {
+    max-height: 134px;
+  }
+}
