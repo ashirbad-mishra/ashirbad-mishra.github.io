@@ -202,7 +202,7 @@ header { background: rgba(251, 250, 247, .97); }
 .hero-image,
 .hero-photo,
 .hero-portrait {
-  width: 50%;
+  width: 75%;
   max-width: 180px;
   height: 180px;
   max-height: 180px;
